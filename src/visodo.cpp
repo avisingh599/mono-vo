@@ -29,9 +29,10 @@ THE SOFTWARE.
 using namespace cv;
 using namespace std;
 
-#define MAX_FRAME 100
+#define MAX_FRAME 1000
 #define MIN_NUM_FEAT 2000
-#define data_dir "/home/avisingh/Datasets/KITTI_VO/00/"
+
+// IMP: Change the file directories (4 places) according to where your dataset is saved before running!
 
 double getAbsoluteScale(int frame_id, int sequence_id, double z_cal)	{
   
@@ -60,12 +61,14 @@ double getAbsoluteScale(int frame_id, int sequence_id, double z_cal)	{
     myfile.close();
   }
 
-  else cout << "Unable to open file";
+  else {
+    cout << "Unable to open file";
+    return 0;
+  }
 
   return sqrt((x-x_prev)*(x-x_prev) + (y-y_prev)*(y-y_prev) + (z-z_prev)*(z-z_prev)) ;
 
 }
-
 
 
 int main( int argc, char** argv )	{
@@ -81,6 +84,12 @@ int main( int argc, char** argv )	{
   char filename2[200];
   sprintf(filename1, "/home/avisingh/Datasets/KITTI_VO/00/image_2/%06d.png", 0);
   sprintf(filename2, "/home/avisingh/Datasets/KITTI_VO/00/image_2/%06d.png", 1);
+
+  char text[100];
+  int fontFace = FONT_HERSHEY_PLAIN;
+  double fontScale = 1;
+  int thickness = 1;  
+  cv::Point textOrg(10, 50);
 
   //read the first two frames from the dataset
   Mat img_1_c = imread(filename1);
@@ -181,6 +190,10 @@ int main( int argc, char** argv )	{
     int x = int(t_f.at<double>(0)) + 300;
     int y = int(t_f.at<double>(2)) + 100;
     circle(traj, Point(x, y) ,1, CV_RGB(255,0,0), 2);
+
+    rectangle( traj, Point(10, 30), Point(550, 50), CV_RGB(0,0,0), CV_FILLED);
+    sprintf(text, "Coordinates: x = %02fm y = %02fm z = %02fm", t_f.at<double>(0), t_f.at<double>(1), t_f.at<double>(2));
+    putText(traj, text, textOrg, fontFace, fontScale, Scalar::all(255), thickness, 8);
 
     imshow( "Road facing camera", currImage_c );
     imshow( "Trajectory", traj );
