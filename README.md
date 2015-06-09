@@ -10,7 +10,7 @@ so the scale informaion is extracted from the KITTI dataset ground truth files.
 
 ##Demo Video
 
-[![Demo video](http://img.youtube.com/vi/homos4vd_Zs/0.jpg)](http://www.youtube.com/watch?v=homos4vd_Zs)
+[![Demo video](http://share.gifyoutube.com/Ke1ope.gif)](http://www.youtube.com/watch?v=homos4vd_Zs)
 
 
 ##Requirements
