@@ -62,8 +62,8 @@ void featureTracking(Mat img_1, Mat img_2, vector<Point2f>& points1, vector<Poin
      		  if((pt.x<0)||(pt.y<0))	{
      		  	status.at(i) = 0;
      		  }
-     		  points1.erase (points1.begin() + i - indexCorrection);
-     		  points2.erase (points2.begin() + i - indexCorrection);
+     		  points1.erase (points1.begin() + (i - indexCorrection));
+     		  points2.erase (points2.begin() + (i - indexCorrection));
      		  indexCorrection++;
      	}
 
